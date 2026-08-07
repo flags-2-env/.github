@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a bug in flags-2-env
+    url: https://github.com/ORESoftware/flags-2-env/issues/new
+    about: The library lives in ORESoftware/flags-2-env. File it there.
+  - name: Request a feature or a new language client
+    url: https://github.com/ORESoftware/flags-2-env/issues/new
+    about: Feature work happens in the canonical repository.
+  - name: Report a security vulnerability
+    url: https://github.com/ORESoftware/flags-2-env/security/advisories/new
+    about: Private advisory. Do not open a public issue.
+  - name: A consumer fixture is broken
+    url: https://github.com/flags-2-env-test
+    about: Per-language consumer harnesses live in the flags-2-env-test org.

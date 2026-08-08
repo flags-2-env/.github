@@ -45,3 +45,24 @@ prove the parse result is identical across runtimes.
 These repos are fixtures, not products. They are deliberately small, they pin
 the upstream commit they were verified against, and they are allowed to break
 loudly when the contract changes — that is the entire point.
+
+## Verified fleet state — 2026-08-08
+
+The 12 language fixtures and `feature-matrix` all declare only the canonical
+`oresoftware/flags-2-env = "^0.2.0"` dependency and materialize under
+`.vendor/.zed`. Their gitlinks use that exact materialization path, making the
+committed checkout an intentional offline stand-in rather than an accidental
+second source tree.
+
+The common fixture workflow verifies the manifest/path relationship, confirms
+the pinned SHA belongs to the canonical upstream, runs the Docker contract,
+and deliberately mutates the flag contract to prove the assertions can fail.
+
+Four additional repositories — `sops-just`, `sops-nix`, `sops-just-nix`, and
+`sops-just-nix-zpkg` — are empty staging nodes. Do not fabricate manifests or
+package identities until their individual interoperability contracts exist.
+Their names describe a planned incremental matrix and do not by themselves
+justify consolidation.
+
+See [`docs/PROJECTS.md`](docs/PROJECTS.md) and issue #1 for the complete source,
+Zed, git-submodule, GitHub, and Linear routing contract.

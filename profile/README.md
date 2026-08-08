@@ -97,3 +97,15 @@ a submodule pin can never advance to a revision the checker rejects.
 
 `flags-2-env` is MIT licensed. See
 [the license in the canonical repository](https://github.com/ORESoftware/flags-2-env/blob/main/LICENSE).
+
+
+<!-- ore-org-baseline:begin -->
+## Planning and governance
+
+- Canonical Linear project: https://linear.app/denman/project/githubcomflags-2-env-05db5133a267
+- Organization defaults: https://github.com/flags-2-env/.github
+- Canonical agent policy: https://github.com/flags-2-env/.github/blob/main/agents.md
+- Security policy: https://github.com/flags-2-env/.github/security/policy
+
+Repositories in this organization use semantic conflict resolution with 3–10 relevant prior commits when useful, full cross-repository context, pull-request delivery, and a hard automated-agent denylist for destructive or history-rewriting operations.
+<!-- ore-org-baseline:end -->

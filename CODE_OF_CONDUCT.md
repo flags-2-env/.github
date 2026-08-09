@@ -12,14 +12,16 @@ discussion.
 
 ## Scope
 
-This applies in every repository across the `flags-2-env`,
-[`flags-2-env-test`](https://github.com/flags-2-env-test), and
-[`ORESoftware`](https://github.com/ORESoftware) organizations, in issues, pull
-requests, commit messages, and code review.
+This applies in every repository across the `flags-2-env` and
+[`flags-2-env-test`](https://github.com/flags-2-env-test) organizations, and in
+the original
+[`ORESoftware/flags-2-env`](https://github.com/ORESoftware/flags-2-env)
+compatibility repository. It covers issues, pull requests, commit messages, and
+code review.
 
 ## Enforcement
 
-Report a problem to the maintainer listed on
-<https://github.com/ORESoftware>. Reports are handled privately. Maintainers may
-edit or delete contributions, and may block accounts, when this policy is
-violated.
+Report a problem to a `flags-2-env` organization owner through an established
+private channel; do not publish sensitive conduct reports in an issue. Reports
+are handled privately. Maintainers may edit or delete contributions, and may
+block accounts, when this policy is violated.

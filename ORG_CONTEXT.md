@@ -1,15 +1,16 @@
 # Organization context
 
-Three GitHub organizations carry the `flags-2-env` project. They are not
-mirrors of each other, and only one of them holds source code.
+Three GitHub organizations participate in the `flags-2-env` project. The
+product source has one canonical repository, one time-bounded compatibility
+mirror, and a separate consumer-test organization.
 
-## `ORESoftware` — canonical
+## `flags-2-env` — canonical product organization
 
-<https://github.com/ORESoftware/flags-2-env>
+<https://github.com/flags-2-env/flags-2-env>
 
-Everything is here: the C core (`src/parser.c`), the per-language clients under
-`clients/`, the CLI, the test suite, the release automation, and the issue
-tracker. Clone this. File issues here. Open pull requests here.
+The C core (`src/parser.c`), per-language clients under `clients/`, CLI, test
+suite, release automation, and issue tracker live here. Clone this repository.
+File new issues here. Open new pull requests here.
 
 Package identities published from it:
 
@@ -21,48 +22,74 @@ Package identities published from it:
 | Maven Central | `com.oresoftware:flags2env` |
 | pub.dev | `flags2env` |
 | Hex | `flags2env` |
-| zed-pkg | `oresoftware/flags-2-env` |
+| zed-pkg | `flags-2-env/flags-2-env@0.3.0` |
 
-## `flags-2-env` — this org
+Organization-wide profile and community-health files live in
+[`flags-2-env/.github`](https://github.com/flags-2-env/.github), but the
+implementation belongs in the sibling `flags-2-env/flags-2-env` repository.
 
-Name reservation plus org-wide community health files. It exists so the obvious
-URL for the project resolves to a page that redirects readers to the canonical
-repository instead of to a 404 or to someone else's squat.
+## `ORESoftware` — compatibility source
 
-It should never accumulate library source. If it does, that code is stale by
-definition, because releases are cut from `ORESoftware/flags-2-env`.
+<https://github.com/ORESoftware/flags-2-env>
+
+The original repository remains a supported, commit-identical compatibility
+mirror through **2026-08-19, inclusive**. It keeps its existing issue and
+pull-request history, and immutable references to it remain valid during the
+window. New source references, issues, pull requests, releases, and security
+reports use the canonical repository.
+
+During the window, canonical `main` and every shared tag must have the same
+object ID in both repositories. Publish canonical first, fast-forward the
+compatibility repository second, and stop publication if they diverge. Repair
+drift with reviewed roll-forward work on the canonical repository followed by
+a compatibility fast-forward; never manufacture parity by rewriting history.
+
+Zed package identities cannot be redirected or aliased, so the transition also
+publishes `oresoftware/flags-2-env@0.3.0` from the same immutable tagged source
+as canonical `flags-2-env/flags-2-env@0.3.0`. Their embedded identities and
+therefore artifact digests differ; their remaining source files must not.
+
+After 2026-08-19, the compatibility repository may remain as a read-only
+historical source and redirect. Compatibility support must not be removed
+before the inclusive cutoff.
 
 ## `flags-2-env-test` — consumer fixtures
 
 <https://github.com/flags-2-env-test>
 
-One repository per language runtime. Each one is a small application that
-declares its flags in `.cli-flags.toml`, pulls `oresoftware/flags-2-env` in as a
-dependency (declared in `.zpkg.toml`, materialized today by a pinned git
-submodule at `.vendor/.zed/oresoftware/flags-2-env`), and runs in Docker to
-prove the parse result is identical across runtimes.
+The organization contains one small consumer application per supported
+language, a cross-language feature matrix, SOPS/Just/Nix interoperability
+fixtures, and dedicated contract, recovery, upgrade, and security suites.
+Language fixtures declare flags in `.cli-flags.toml` and run the exact pinned
+library source in Docker to prove parse parity across runtimes.
 
-These repos are fixtures, not products. They are deliberately small, they pin
-the upstream commit they were verified against, and they are allowed to break
-loudly when the contract changes — that is the entire point.
+These repositories are fixtures, not products. They deliberately pin the
+upstream commit they verified and are allowed to break loudly when the contract
+changes.
 
-## Verified fleet state — 2026-08-08
+## Verified fleet state — 2026-08-09
 
-The 12 language fixtures and `feature-matrix` all declare only the canonical
-`oresoftware/flags-2-env = "^0.2.0"` dependency and materialize under
-`.vendor/.zed`. Their gitlinks use that exact materialization path, making the
-committed checkout an intentional offline stand-in rather than an accidental
-second source tree.
+The 12 language fixtures and `feature-matrix` still declare the compatibility
+`oresoftware/flags-2-env = "^0.2.0"` coordinate and materialize under
+`.vendor/.zed`. Their gitlinks use
+`.vendor/.zed/oresoftware/flags-2-env`, making the committed checkout an
+intentional offline stand-in rather than an accidental second source tree.
+Those immutable pins remain supported during the transition window.
 
-The common fixture workflow verifies the manifest/path relationship, confirms
-the pinned SHA belongs to the canonical upstream, runs the Docker contract,
-and deliberately mutates the flag contract to prove the assertions can fail.
+When a fixture migrates, change the dependency to
+`flags-2-env/flags-2-env = "^0.3"` and move the gitlink to
+`.vendor/.zed/flags-2-env/flags-2-env` in the same reviewed change. Do not
+materialize both coordinates. The common workflow must verify the
+manifest/path relationship, confirm the immutable pin belongs to the canonical
+upstream, run the Docker contract, and deliberately mutate the flag contract
+to prove the assertions can fail. Resolver-generated `.zpkg.lock` provenance
+must never be hand-authored.
 
-Four additional repositories — `sops-just`, `sops-nix`, `sops-just-nix`, and
-`sops-just-nix-zpkg` — are empty staging nodes. Do not fabricate manifests or
-package identities until their individual interoperability contracts exist.
-Their names describe a planned incremental matrix and do not by themselves
-justify consolidation.
+The `sops-just`, `sops-nix`, `sops-just-nix`, and `sops-just-nix-zpkg`
+repositories are now populated interoperability fixtures. Four additional
+repositories exercise contract conformance, chaos recovery, upgrade
+compatibility, and security boundaries. These repositories consume or test the
+product contract; none is an alternate source publisher.
 
-See [`docs/PROJECTS.md`](docs/PROJECTS.md) and issue #1 for the complete source,
-Zed, git-submodule, GitHub, and Linear routing contract.
+See [`docs/PROJECTS.md`](docs/PROJECTS.md) and issue #1 for the source, Zed,
+git-submodule, GitHub, and Linear routing history.

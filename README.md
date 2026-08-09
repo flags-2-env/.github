@@ -3,10 +3,20 @@
 Organization-wide community health files for the `flags-2-env` GitHub
 organization.
 
-**This organization holds no library source code.** `flags-2-env` is developed
-at **[github.com/ORESoftware/flags-2-env](https://github.com/ORESoftware/flags-2-env)**
-and that repository is canonical for issues, pull requests, releases, and
-security reports.
+The canonical library source is
+**[flags-2-env/flags-2-env](https://github.com/flags-2-env/flags-2-env)**.
+Use its [issue tracker](https://github.com/flags-2-env/flags-2-env/issues),
+[pull requests](https://github.com/flags-2-env/flags-2-env/pulls),
+[releases](https://github.com/flags-2-env/flags-2-env/releases), and
+[private security advisories](https://github.com/flags-2-env/flags-2-env/security/advisories/new)
+for new library work.
+
+The original
+[`ORESoftware/flags-2-env`](https://github.com/ORESoftware/flags-2-env)
+repository is a supported compatibility mirror through **2026-08-19,
+inclusive**. Existing immutable references and existing issue or pull-request
+history there remain supported during the transition, but new references and
+new work should use the canonical repository.
 
 | File | Applies to |
 | --- | --- |
@@ -19,14 +29,27 @@ security reports.
 
 ## Why the org exists
 
-The name was reserved so that `github.com/flags-2-env` resolves to something
-authoritative rather than to a squatted or empty page. It points readers at the
-real repository, and it gives the paired
-[`flags-2-env-test`](https://github.com/flags-2-env-test) organization — which
-holds one consumer fixture per language — a stable sibling to reference.
+This organization owns the product source, releases, public project identity,
+and shared community-health policy. The paired
+[`flags-2-env-test`](https://github.com/flags-2-env-test) organization owns
+consumer fixtures and conformance suites; it does not replace or fork the
+library source.
 
-Anything that looks like an implementation living here is stale. Prefer
-`ORESoftware/flags-2-env`.
+## Source and package transition
+
+| Surface | Canonical | Compatibility through 2026-08-19 inclusive |
+| --- | --- | --- |
+| GitHub source | [`flags-2-env/flags-2-env`](https://github.com/flags-2-env/flags-2-env) | [`ORESoftware/flags-2-env`](https://github.com/ORESoftware/flags-2-env) |
+| zed-pkg | `flags-2-env/flags-2-env@0.3.0` | `oresoftware/flags-2-env@0.3.0` |
+
+The Git repositories must resolve `main` and every shared tag to identical Git
+objects during the support window. Releases land on the canonical repository
+first and are then fast-forwarded to the compatibility repository; any drift is
+a release blocker. The two Zed coordinates are separate publications because
+Zed has no package-alias field, but both must be built from the same immutable
+tagged source. See the canonical
+[source-migration contract](https://github.com/flags-2-env/flags-2-env/blob/main/docs/source-migration.md)
+for the verification and cutoff procedure.
 
 
 <!-- ore-org-baseline:begin -->

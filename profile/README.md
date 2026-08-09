@@ -1,8 +1,10 @@
 # flags-2-env
 
-> **The source code lives at [github.com/ORESoftware/flags-2-env](https://github.com/ORESoftware/flags-2-env).**
-> This organization does not host the implementation. It holds the name, the
-> org-level profile, and shared community-health files.
+> **The canonical source code lives at
+> [github.com/flags-2-env/flags-2-env](https://github.com/flags-2-env/flags-2-env).**
+> The original
+> [github.com/ORESoftware/flags-2-env](https://github.com/ORESoftware/flags-2-env)
+> remains a supported compatibility mirror through **2026-08-19, inclusive**.
 
 `flags-2-env` is a C library — with bindings for ~35 languages — that parses CLI
 flags declared in a project-local `.cli-flags.toml` into a string-to-string map
@@ -13,14 +15,34 @@ your stack reads the same contract.
 
 | I want to… | Go to |
 | --- | --- |
-| Read or clone the source | [ORESoftware/flags-2-env](https://github.com/ORESoftware/flags-2-env) |
-| File an issue or a PR | [ORESoftware/flags-2-env/issues](https://github.com/ORESoftware/flags-2-env/issues) |
+| Read or clone the source | [flags-2-env/flags-2-env](https://github.com/flags-2-env/flags-2-env) |
+| File an issue or a PR | [flags-2-env/flags-2-env/issues](https://github.com/flags-2-env/flags-2-env/issues) |
+| Report a vulnerability privately | [Canonical security advisory](https://github.com/flags-2-env/flags-2-env/security/advisories/new) |
 | See it consumed from 12 languages | [flags-2-env-test](https://github.com/flags-2-env-test) |
+| Install with Zed | `flags-2-env/flags-2-env@^0.3` |
 | Install the Node package | `npm install @oresoftware/f2e` |
 
-**Nothing here is a fork or a mirror.** If a repository in this organization
-ever appears to contain library source, treat it as stale and prefer
-`ORESoftware/flags-2-env`, which is canonical.
+## Ten-day compatibility window
+
+New Git references and Zed manifests should use the canonical coordinates:
+
+```text
+https://github.com/flags-2-env/flags-2-env
+flags-2-env/flags-2-env@0.3.0
+```
+
+Through 2026-08-19 inclusive, these original coordinates remain supported:
+
+```text
+https://github.com/ORESoftware/flags-2-env
+oresoftware/flags-2-env@0.3.0
+```
+
+Both Git repositories must resolve `main` and every shared tag to identical
+objects. The Zed packages have distinct identities because the registry cannot
+alias coordinates, but both are published from the same immutable tagged
+source. Publication stops on drift; canonical changes are reviewed first and
+the compatibility repository is fast-forwarded second.
 
 ## What the contract looks like
 
@@ -60,7 +82,7 @@ The C core is gated by layered, self-verifying checks in the canonical
 repository — every PR must pass:
 
 - **A custom borrow checker**
-  ([`tools/borrow-checker/`](https://github.com/ORESoftware/flags-2-env/tree/main/tools/borrow-checker))
+  ([`tools/borrow-checker/`](https://github.com/flags-2-env/flags-2-env/tree/main/tools/borrow-checker))
   — a flow-sensitive ownership analysis of the library's own
   `F2E_OWNED_RESULT` / `F2E_TAKES_OWNED_ARG_1` contract. It rejects
   double-frees, use-after-free, unchecked-allocation dereferences, leaks,
@@ -68,7 +90,7 @@ repository — every PR must pass:
   public ABI, and it infers contracts for file-local helpers so internals
   need no annotation.
 - **Formal proofs**
-  ([`formal/`](https://github.com/ORESoftware/flags-2-env/tree/main/formal))
+  ([`formal/`](https://github.com/flags-2-env/flags-2-env/tree/main/formal))
   — CBMC model-checks bounded calls into the real parser and the
   terminal-context scanners; Z3 proves parser dispatch invariants **and the
   borrow checker's own state machine** (no bounded trace can reach a
@@ -85,18 +107,18 @@ a submodule pin can never advance to a revision the checker rejects.
 
 ## Organizations
 
-- **[ORESoftware](https://github.com/ORESoftware)** — canonical source of
-  `flags-2-env` and the rest of the ORE Software fleet.
-- **flags-2-env** (this org) — name reservation, org profile, community health
-  files. No implementation code.
+- **flags-2-env** (this org) — canonical product source, releases, issues, org
+  profile, and community-health files.
+- **[ORESoftware](https://github.com/ORESoftware)** — original source location
+  and supported compatibility mirror through 2026-08-19 inclusive.
 - **[flags-2-env-test](https://github.com/flags-2-env-test)** — one consumer
-  repository per language, each vendoring `ORESoftware/flags-2-env` and proving
-  the contract end-to-end in Docker.
+  repository per language plus interoperability and conformance suites. These
+  repositories prove the contract end-to-end; they are not source publishers.
 
 ## License
 
 `flags-2-env` is MIT licensed. See
-[the license in the canonical repository](https://github.com/ORESoftware/flags-2-env/blob/main/LICENSE).
+[the license in the canonical repository](https://github.com/flags-2-env/flags-2-env/blob/main/LICENSE).
 
 
 <!-- ore-org-baseline:begin -->

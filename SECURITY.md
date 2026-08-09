@@ -2,14 +2,21 @@
 
 ## Reporting a vulnerability
 
-Report vulnerabilities through the **canonical repository**, not through this
-organization:
+Report vulnerabilities through the **canonical source repository**:
 
-<https://github.com/ORESoftware/flags-2-env/security/advisories/new>
+<https://github.com/flags-2-env/flags-2-env/security/advisories/new>
 
-If private advisory reporting is unavailable to you, email the maintainer listed
-on <https://github.com/ORESoftware> instead. Do not open a public issue for a
-vulnerability.
+Private vulnerability reporting is enabled on the canonical repository and
+must remain enabled. If GitHub does not present the private submission form, do
+not open a public issue or include vulnerability details in a support request.
+Contact an organization owner through an established private channel and
+report only that the security intake is unavailable. Do not duplicate a
+private report across repositories.
+
+The original `ORESoftware/flags-2-env` repository remains a supported,
+commit-identical compatibility source through **2026-08-19, inclusive**. A
+private report already filed there during the support window will continue to
+be triaged, but new reports should use the canonical advisory link above.
 
 Please include: the affected client or the C core, the `.cli-flags.toml` and
 argv that reproduce the issue, the observed result, and the result you expected.
@@ -41,5 +48,7 @@ Out of scope:
 
 ## Supported versions
 
-The most recent release on the `main` branch of `ORESoftware/flags-2-env` is
-supported. There are no long-term support branches.
+The most recent release on the `main` branch of
+`flags-2-env/flags-2-env` is supported. Through 2026-08-19 inclusive, the
+compatibility repository must resolve supported `main` and tag refs to the same
+Git objects. There are no long-term support branches.

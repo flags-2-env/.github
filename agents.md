@@ -102,3 +102,7 @@ work in progress, and `-A` is how that — plus secrets — gets committed by ac
 
 Never report work as landed while it is only on local disk. A change is done when
 it is committed, pushed, and open as a pull request; compiling is not landing.
+
+## Rust-first scripts and tests (flags-2-env policy)
+
+Use **Rust, not Python**, for all new first-party test harnesses, CI/check scripts, generators, maintenance utilities, and automation. Prefer `cargo test`, `cargo xtask`, and `rustc --test`; shell/YAML may only be thin workflow adapters. Never introduce or extend Python scripts or Python test infrastructure. Preserve existing test coverage and controls while converting legacy scripts to Rust; do not delete an old test runner until its Rust replacement has verified equivalent pass/fail behavior and negative cases. Product-language tests (such as actual `.atto` compiler/runtime tests) should execute in the product language, with Rust providing the host harness; an independent Rust model is not proof that the product compiler executed. Narrow documented Python product-code exceptions do not permit new CI/testing automation. See [CONTRIBUTING.md](CONTRIBUTING.md#rust-first-scripts-and-automation). This `.github` policy must be synced into local repositories to apply there; it is not inherited automatically.

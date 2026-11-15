@@ -1,5 +1,7 @@
 # flags-2-env/.github
 
+**Scripting policy:** [Use Rust, not Python scripts](CONTRIBUTING.md#rust-first-scripts-and-automation). Documented Python application code is a narrow exception.
+
 Organization-wide community health files for the `flags-2-env` GitHub
 organization.
 

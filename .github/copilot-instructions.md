@@ -64,3 +64,7 @@ Never print, log, commit, paste into issues, include in fixtures, or expose toke
 
 Use focused branches and pull requests. Link the relevant Linear issue or project. Explain behavior, risks, migration and roll-forward considerations, security impact, tests run, conflicts and their semantic resolution, and cross-repository dependencies. Never report a branch, commit, pull request, merge, deployment, test run, or external update as complete without authoritative remote evidence.
 <!-- ore-org-baseline:end -->
+
+## Rust-first scripts and test harnesses
+
+Prefer Rust (`cargo test`, `cargo xtask`, `rustc --test`) for first-party test harnesses and CI/build/maintenance scripts. Do **not** add Python scripts or Python test infrastructure. Keep native product-language execution tests and preserve existing coverage when migrating other harnesses. Refer to [CONTRIBUTING.md](../CONTRIBUTING.md#rust-first-scripts-and-automation) for migration and the narrowly documented Python product-code exception. This instruction is repository-local; mirror it explicitly in other repositories.

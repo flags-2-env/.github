@@ -1,0 +1,38 @@
+name: Rust-first script and test policy
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  rust-first-policy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - name: Checkout exact pull-request head
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Check exact Git object and whitespace
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          git diff --check
+      - name: Compile and execute zero-dependency Rust policy unit tests
+        run: |
+          rustc --version
+          rustc --edition=2021 --test tools/rust_script_guard.rs -o "$RUNNER_TEMP/rust-script-guard-tests"
+          "$RUNNER_TEMP/rust-script-guard-tests"
+      - name: Reject changed Python automation and test entry points
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          rustc --edition=2021 tools/rust_script_guard.rs -o "$RUNNER_TEMP/rust-script-guard"
+          git cat-file -e "${BASE_SHA}^{commit}"
+          git cat-file -e "${HEAD_SHA}^{commit}"
+          git diff --name-only -z --diff-filter=ACMR "$BASE_SHA" "$HEAD_SHA" | "$RUNNER_TEMP/rust-script-guard"

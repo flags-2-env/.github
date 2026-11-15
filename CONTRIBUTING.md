@@ -62,3 +62,11 @@ Do not open a public issue. See [SECURITY.md](SECURITY.md).
 Document repeatable `cargo` commands; cover meaningful failures and regressions, and use `cargo fmt --check`, `cargo clippy -- -D warnings`, `cargo test`, and appropriate end-to-end checks. Report checks as passed only when actually executed on the changed commit. Do not delete functioning scripts until an equivalent Rust path is tested.
 
 The canonical organization `.github` repository supplies **contributor guidance**; GitHub does not automatically inherit arbitrary `AGENTS.md`, policies, or workflows. Individual repositories should synchronize agent instructions and explicitly enable relevant checks to make the rule enforceable.
+
+### Tests are Rust-first, too
+
+- Write **new test harnesses, property-based tests, fuzz drivers, test fixtures generators, CI assertions, and repository automation in Rust**, using `cargo test`, `cargo xtask`, or a small standalone `rustc --test` target. **Do not introduce Python scripts or Python-based testing infrastructure.**
+- Keep tests written *in the language of the product being tested* when a native compiler/runtime is the actual subject (for example, an AttoLang compiler regression must still execute `.atto`); use Rust for the surrounding harness and cross-language oracle. Do not replace real language execution with a Rust model and call it compiler verification.
+- Existing Python test/automation entry points are technical debt, not a precedent. Migrate incrementally while preserving behavior, negative tests, exit codes, platform coverage and audit gates. Until parity is demonstrated, keep the old coverage rather than silently dropping it.
+- Existing non-Python test harnesses may continue during a measured transition. Prefer Rust when adding or replacing host-side conformance tests; do not rewrite third-party generated tests solely for language uniformity.
+- Put the same instruction in each repository's local agent guidance; this organization-level documentation is **not automatically inherited or enforced** by other repositories.
